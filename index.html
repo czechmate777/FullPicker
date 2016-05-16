@@ -32,6 +32,9 @@
 <input type="text" name="color-text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onchange="colorChange(this.value)" onkeypress="this.onchange(this.value);" onpaste="this.onchange(this.value);" oninput="this.onchange(this.value);" placeholder="Enter or paste a color value...">
 
 <script>
+	window.onbeforeunload = function() {
+		return "Your color hystory will be lost.";
+	};
 	function colorChange(value) {
 		if (/(^[0-9A-F]{6}$)|(^[0-9A-F]{3}$)/i.test(value)) {
 			setBGTo("#"+value);
