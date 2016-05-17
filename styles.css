@@ -1,0 +1,78 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+* { 
+    font-family: 'Source Sans Pro', sans-serif;
+}
+body {
+	margin: 0;
+	width: 100vw;
+	height: 100vh;
+	transition: background-color 0.3s;
+}
+
+.swatches {
+    width: 100vw;
+    height: 100px;
+    background-color: rgba(255,255,255,0.5);
+    overflow-x: scroll;
+    white-space: nowrap;
+    position: absolute;
+    top: 0;
+    transition: all 0.3s;
+}
+.overflower {
+    height: 100px;
+}
+.swatch {
+	width: 90px;
+	height: 90px;
+	margin-top: 5px;
+	margin-left: 5px;
+	float: left;
+}
+
+.input-wrap {
+	top: 50vh;
+    position: absolute;
+    margin-top: -20px;
+    width: 250px;
+    left: 50vw;
+    margin-left: -125px;
+    background-color: rgba(255,255,255,0.5);
+    -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
+}
+input[name="color-text"] {
+    padding: 15px;
+    width: 220px;
+    font-size: 16px;
+    border: 0;
+    background: none;
+    outline: none;
+}
+.fav-button {
+	position: absolute;
+	right: 16px;
+	top: 16px;
+	font-size: 20px;
+	transition: color 0.3s;
+}
+.fav-button:hover {
+	color: red;
+	cursor: pointer;
+}
+
+
+
+
+::-webkit-input-placeholder {
+    color:    #666;
+}
+:-moz-placeholder {
+    color:    #666;
+}
+::-moz-placeholder {
+    color:    #666;
+}
+:-ms-input-placeholder {
+    color:    #666;
+}

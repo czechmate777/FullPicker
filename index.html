@@ -4,51 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FullPicker</title>
-<style type="text/css">
-	body {
-		margin: 0;
-		width: 100vw;
-		height: 100vh;
-		transition: all 0.5s;
-	}
-	input[name="color-text"] {
-	    top: 50vh;
-	    position: absolute;
-	    margin-top: -20px;
-	    width: 200px;
-	    left: 50vw;
-	    margin-left: -100px;
-	    background-color: rgba(255,255,255,0.5);
-	    border: 0px solid black;
-	    border-radius: 0px;
-	    padding: 15px;
-	    outline: none;
-	    -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
-	    box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
-	}
-</style>
+<script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body style="background-color: white;">
-<input type="text" name="color-text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onchange="colorChange(this.value)" onkeypress="this.onchange(this.value);" onpaste="this.onchange(this.value);" oninput="this.onchange(this.value);" placeholder="Enter or paste a color value...">
+<div class="swatches">
+	<div class="overflower">
+		
+	</div>
+</div>
+<div class="input-wrap">
+	<input type="text" name="color-text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onchange="colorChange(this.value)" onkeypress="this.onchange(this.value)" onpaste="this.onchange(this.value)" oninput="this.onchange(this.value)" placeholder="Enter or paste a color value...">
+	<i class="fa fa-heart fav-button" onclick="onHeartClick()"></i>
+</div>
 
-<script>
-	window.onbeforeunload = function() {
-		return "Your color hystory will be lost.";
-	};
-	function colorChange(value) {
-		if (/(^[0-9A-F]{6}$)|(^[0-9A-F]{3}$)/i.test(value)) {
-			setBGTo("#"+value);
-		}
-		else {
-			setBGTo(value);
-		}
-	}
-
-	function setBGTo(input) {
-		document.getElementsByTagName("body")[0].style.backgroundColor = input;
-	}
-</script>
+<script src="scripts.js"></script>
 
 </body>
 
