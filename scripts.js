@@ -1,6 +1,7 @@
 $('.fav-button').hide();
 
 var numSwatches = 0;
+var hex;
 
 $(window).resize(function(){
     refreshOverflower();
@@ -9,19 +10,25 @@ $(window).resize(function(){
 window.onbeforeunload = function() {
 	return "Your color hystory will be lost!";
 };
-function colorChange(value) {
+
+function deleteSwatch(s) {
+	numSwatches--;
+	$('#'+s.parentNode.id).hide("fast", function(){s.parentNode.remove(); refreshOverflower();});
+}
+
+function inputChange(value) {
 	if (value!="") {
 		$('.fav-button').show(300);
-		if (/(^[0-9A-F]{6}$)|(^[0-9A-F]{3}$)/i.test(value)) {
-			setBGTo("#"+value);
-		}
-		else {
-			setBGTo(value);
-		}
+		setBGTo(value);
 	}
 	else {
 		$('.fav-button').hide(300);
 	}
+}
+
+function onPickerChange(picker){
+	hex = picker.toHEXString();
+	setBGTo(hex);
 }
 
 function setBGTo(input) {
@@ -29,10 +36,13 @@ function setBGTo(input) {
 }
 
 function onHeartClick() {
-	console.log($('body')[0].style.backgroundColor);
-	$('.overflower').prepend("<div class='swatch' style='background-color:"+$('body')[0].style.backgroundColor+"'><span>"+$('body')[0].style.backgroundColor+"</span></div>");
 	numSwatches++;
 	refreshOverflower();
+	$('.overflower').prepend("<div id='swatch-"+numSwatches+"' class='swatch' style='display:none;background-color:"+hex+"'><div>"+hex+"</div><div onclick='deleteSwatch(this)' class='closer'>X</div></div>");
+	$('#swatch-'+numSwatches).delay(100).show(400);
+	if (!$('.swatches').hasClass("swatches-expanded")){
+		toggleSwatches();
+	}
 }
 
 function onClearClick() {
@@ -53,5 +63,5 @@ function onScrollLeft() {
 }
 
 function refreshOverflower() {
-	$('.overflower').width(($(window).width() > 100*numSwatches ? $(window).width() : 100*numSwatches));
+	$('.overflower').width(($(window).width() > 95*numSwatches ? $(window).width() : 95*numSwatches));
 }
