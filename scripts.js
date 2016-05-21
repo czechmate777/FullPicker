@@ -1,6 +1,7 @@
 $('.fav-button').hide();
 
 var numSwatches = 0;
+var swatchId = 0;
 var hex;
 
 $(window).resize(function(){
@@ -12,11 +13,20 @@ window.onbeforeunload = function() {
 };
 
 function deleteSwatch(s) {
+	event.stopPropagation();
 	numSwatches--;
 	$('#'+s.parentNode.id).hide("fast", function(){s.parentNode.remove(); refreshOverflower();});
 }
 
+function selectSwatch(s) {
+	var c = s.firstChild.innerHTML;
+	setBGTo(c);
+	$('.jscolor').val(c);
+	$('.jscolor').trigger("change");
+}
+
 function inputChange(value) {
+	console.log("inputChange");
 	if (value!="") {
 		$('.fav-button').show(300);
 		setBGTo(value);
@@ -37,9 +47,10 @@ function setBGTo(input) {
 
 function onHeartClick() {
 	numSwatches++;
+	swatchId++;
 	refreshOverflower();
-	$('.overflower').prepend("<div id='swatch-"+numSwatches+"' class='swatch' style='display:none;background-color:"+hex+"'><div>"+hex+"</div><div onclick='deleteSwatch(this)' class='closer'>X</div></div>");
-	$('#swatch-'+numSwatches).delay(100).show(400);
+	$('.overflower').prepend("<div id='swatch-"+swatchId+"' class='swatch' onclick='selectSwatch(this)' style='display:none;background-color:"+hex+"'><div>"+hex+"</div><div onclick='deleteSwatch(this)' class='closer'>X</div></div>");
+	$('#swatch-'+swatchId).delay(100).show(400);
 	if (!$('.swatches').hasClass("swatches-expanded")){
 		toggleSwatches();
 	}
