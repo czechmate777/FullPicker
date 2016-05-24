@@ -15,7 +15,12 @@ window.onbeforeunload = function() {
 function deleteSwatch(s) {
 	event.stopPropagation();
 	numSwatches--;
-	$('#'+s.parentNode.id).hide("fast", function(){s.parentNode.remove(); refreshOverflower();});
+	if (numSwatches < 1) {
+		$('.swatches .overflower').html("");
+	}
+	else {
+		$('#'+s.parentNode.id).hide("fast", function(){s.parentNode.remove(); refreshOverflower();});
+	}
 }
 
 function selectSwatch(s) {
@@ -23,6 +28,20 @@ function selectSwatch(s) {
 	setBGTo(c);
 	$('.jscolor').val(c);
 	$('.jscolor').trigger("change");
+
+	// Select the hex
+	var range, selection;    
+    if (document.body.createTextRange) {
+        range = document.body.createTextRange();
+        range.moveToElementText(s.firstChild);
+        range.select();
+    } else if (window.getSelection) {
+        selection = window.getSelection();        
+        range = document.createRange();
+        range.selectNodeContents(s.firstChild);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
 }
 
 function inputChange(value) {
