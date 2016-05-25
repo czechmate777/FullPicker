@@ -4,22 +4,23 @@ var numSwatches = 0;
 var swatchId = 0;
 var hex;
 
+$(document).ready(function() {
+	loadSwatchesFromHash();
+});
+
 $(window).resize(function(){
     refreshOverflower();
 });
-
-window.onbeforeunload = function() {
-	return "Your color hystory will be lost!";
-};
 
 function deleteSwatch(s) {
 	event.stopPropagation();
 	numSwatches--;
 	if (numSwatches < 1) {
 		$('.swatches .overflower').html("");
+		updateAddress();
 	}
 	else {
-		$('#'+s.parentNode.id).hide("fast", function(){s.parentNode.remove(); refreshOverflower();});
+		$('#'+s.parentNode.id).hide("fast", function(){s.parentNode.remove(); refreshOverflower(); updateAddress()});
 	}
 }
 
@@ -49,6 +50,7 @@ function inputChange(value) {
 	if (value!="") {
 		$('.fav-button').show(300);
 		setBGTo(value);
+		updateAddress();
 	}
 	else {
 		$('.fav-button').hide(300);
@@ -58,6 +60,7 @@ function inputChange(value) {
 function onPickerChange(picker){
 	hex = picker.toHEXString();
 	setBGTo(hex);
+	updateAddress();
 }
 
 function setBGTo(input) {
@@ -65,14 +68,19 @@ function setBGTo(input) {
 }
 
 function onHeartClick() {
+	addSwatch(hex);
+}
+
+function addSwatch(color) {
 	numSwatches++;
 	swatchId++;
 	refreshOverflower();
-	$('.overflower').prepend("<div id='swatch-"+swatchId+"' class='swatch' onclick='selectSwatch(this)' style='display:none;background-color:"+hex+"'><div>"+hex+"</div><div onclick='deleteSwatch(this)' class='closer'>X</div></div>");
+	$('.overflower').prepend("<div id='swatch-"+swatchId+"' class='swatch' onclick='selectSwatch(this)' style='display:none;background-color:"+color+"'><div>"+color+"</div><div onclick='deleteSwatch(this)' class='closer'>X</div></div>");
 	$('#swatch-'+swatchId).delay(100).show(400);
 	if (!$('.swatches').hasClass("swatches-expanded")){
 		toggleSwatches();
 	}
+	updateAddress();
 }
 
 function onClearClick() {
@@ -94,4 +102,35 @@ function onScrollLeft() {
 
 function refreshOverflower() {
 	$('.overflower').width(($(window).width() > 95*numSwatches ? $(window).width() : 95*numSwatches));
+}
+
+function getSwatchList() {
+	swatchList = [];
+	var swatches = $('.swatches .overflower').children();
+	for (var i = 0; i < numSwatches; i++) {
+		swatchList[i] = swatches[i].firstChild.innerHTML;
+	}
+	return swatchList;
+}
+
+function updateAddress() {
+	var address = "/";
+	if (numSwatches > 0) {
+		var address = "?id="+swatchId+"&";
+		var swatchList = getSwatchList();
+		for (var i = 0; i < swatchList.length; i++) {
+			address += swatchList[i];
+		}
+	}
+	window.history.replaceState("", "FullPicker", address);
+}
+
+function loadSwatchesFromHash() {
+	var hash = window.location.hash.substring(1).split('#');
+	console.log(hash);
+	if (hash[0]!="") {
+		for (var i = hash.length-1; i >=0; i--) {
+			addSwatch("#"+hash[i]);
+		}
+	}
 }

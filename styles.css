@@ -89,7 +89,7 @@ body {
 	display: block;
 	opacity: 0.5;
 	top: 14px;
-	transition: top 0.3s 1s, opacity 0.2s;
+	transition: top 0.3s 0.5s, opacity 0.2s;
 }
 .swatch .closer:hover {
 	opacity: 1;
