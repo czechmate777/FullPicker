@@ -114,15 +114,17 @@ function getSwatchList() {
 }
 
 function updateAddress() {
-	var address = "/";
 	if (numSwatches > 0) {
 		var address = "?id="+swatchId+"&";
 		var swatchList = getSwatchList();
 		for (var i = 0; i < swatchList.length; i++) {
 			address += swatchList[i];
 		}
+		window.history.replaceState("", "FullPicker", window.location.pathname+address);
 	}
-	window.history.replaceState("", "FullPicker", window.location.pathname+address);
+	else {
+		window.history.replaceState("", "FullPicker", window.location.pathname);
+	}
 }
 
 function loadSwatchesFromHash() {
