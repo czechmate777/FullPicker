@@ -122,7 +122,7 @@ function updateAddress() {
 			address += swatchList[i];
 		}
 	}
-	window.history.replaceState("", "FullPicker", address);
+	window.history.replaceState("", "FullPicker", window.location.pathname+address);
 }
 
 function loadSwatchesFromHash() {
