@@ -60,7 +60,6 @@ function inputChange(value) {
 function onPickerChange(picker){
 	hex = picker.toHEXString();
 	setBGTo(hex);
-	updateAddress();
 }
 
 function setBGTo(input) {
@@ -129,7 +128,6 @@ function updateAddress() {
 
 function loadSwatchesFromHash() {
 	var hash = window.location.hash.substring(1).split('#');
-	console.log(hash);
 	if (hash[0]!="") {
 		for (var i = hash.length-1; i >=0; i--) {
 			addSwatch("#"+hash[i]);

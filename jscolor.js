@@ -978,7 +978,7 @@ var jsc = {
 
 		// General options
 		//
-		this.value = 777; // initial HEX color. To change it later, use methods fromString(), fromHSV() and fromRGB()
+		this.value = false; // initial HEX color. To change it later, use methods fromString(), fromHSV() and fromRGB()
 		this.valueElement = targetElement; // element that will be used to display and input the color code
 		this.styleElement = null; // element that will preview the picked color using CSS backgroundColor
 		this.required = true; // whether the associated text <input> can be left empty
@@ -1806,7 +1806,7 @@ var jsc = {
 			// export the current color
 			this.fromString(this.value) || this.exportColor();
 		} else {
-			this.importColor();
+			//this.importColor();
 		}
 	}
 
