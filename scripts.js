@@ -130,7 +130,6 @@ function updateAddress() {
 		for (var i = 0; i < swatchList.length; i++) {
 			address += swatchList[i];
 		}
-		console.log("Changing to: "+address);
 		window.history.replaceState("", "FullPicker", window.location.pathname+address);
 	}
 	else {
