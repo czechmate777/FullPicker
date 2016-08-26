@@ -69,13 +69,13 @@ body {
 }
 .swatch .closer {
 	color: black;
-	font-size: 22px;
+	font-size: 18px;
 	text-align: center;
 	position: relative;
-	left: 25px;
-	top: 80px;
-	width: 28px;
-	height: 28px;
+	left: 62px;
+	top: -80px;
+	width: 22px;
+	height: 22px;
 	background-color: rgba(255, 255, 255, 0.39);
 	-webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
 	box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
@@ -88,13 +88,13 @@ body {
 .swatch:hover .closer {
 	display: block;
 	opacity: 0.5;
-	top: 14px;
+	top: 4px;
 	transition: top 0.3s 0.5s, opacity 0.2s;
 }
 .swatch .closer:hover {
 	opacity: 1;
 }
-.swatch div {
+.swatch div:not(.closer) {
 	background-color: rgba(255,255,255,0.5);
 	-webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
 	box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
