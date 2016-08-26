@@ -6,6 +6,12 @@ var hex;
 
 $(document).ready(function() {
 	loadSwatchesFromHash();
+	$( ".swatches .overflower" ).sortable({
+	  revert: true,
+	  containment: ".overflower",
+	  axis: 'x',
+	  update: function( event, ui ) {updateAddress();},
+	});
 });
 
 $(window).resize(function(){
@@ -46,15 +52,20 @@ function selectSwatch(s) {
 }
 
 function inputChange(value) {
-	console.log("inputChange");
-	if (value!="") {
-		$('.fav-button').show(300);
-		setBGTo(value);
-		updateAddress();
+	if (!dragging()){
+		if (value!="") {
+			$('.fav-button').show(300);
+			setBGTo(value);
+			updateAddress();
+		}
+		else {
+			$('.fav-button').hide(300);
+		}
 	}
-	else {
-		$('.fav-button').hide(300);
-	}
+}
+
+function dragging(){
+	return $('.overflower .ui-sortable-placeholder').length>0;
 }
 
 function onPickerChange(picker){
@@ -119,6 +130,7 @@ function updateAddress() {
 		for (var i = 0; i < swatchList.length; i++) {
 			address += swatchList[i];
 		}
+		console.log("Changing to: "+address);
 		window.history.replaceState("", "FullPicker", window.location.pathname+address);
 	}
 	else {
